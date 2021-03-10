@@ -2,6 +2,7 @@ package com.parkit.parkingsystem.service;
 
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.model.Ticket;
+import org.apache.commons.math3.util.Precision;
 
 public class FareCalculatorService {
 
@@ -30,12 +31,16 @@ public class FareCalculatorService {
             if (ticket.isRegular()){
                 price = getDiscount(price, Fare.DISCOUNT_RECURRING_USERS);
             }
-            ticket.setPrice(price);
+            ticket.setPrice(roundPrice(price));
         }
 
     }
 
-    private double getDiscount(double price, double discount){
+    public double roundPrice(double price){
+        return Precision.round(price, 2);
+    }
+
+    public double getDiscount(double price, double discount){
         return price - (price * discount);
     }
 
