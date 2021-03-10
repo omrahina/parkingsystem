@@ -37,9 +37,8 @@ public class ParkingService {
 
                 Date inTime = new Date();
                 Ticket ticket = new Ticket();
-                if(ticketDAO.getTicket(vehicleRegNumber) != null){
+                if(ticketDAO.countTicket(vehicleRegNumber)){
                     System.out.println("Welcome back! As a recurring user of our parking lot, you'll benefit from a 5% discount.");
-                    ticket.setRegular(true);
                 }
                 //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
                 //ticket.setId(ticketID);
@@ -108,6 +107,9 @@ public class ParkingService {
             Date outTime = new Date();
             ticket.setOutTime(outTime);
             fareCalculatorService.calculateFare(ticket);
+            if(ticketDAO.countTicket(vehicleRegNumber)){
+               fareCalculatorService.getDiscount(ticket);
+            }
             if(ticketDAO.updateTicket(ticket)) {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();
                 parkingSpot.setAvailable(true);

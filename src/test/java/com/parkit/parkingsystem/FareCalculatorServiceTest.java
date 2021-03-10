@@ -148,9 +148,9 @@ public class FareCalculatorServiceTest {
         ticket.setInTime(inTime);
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
-        ticket.setRegular(true);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals(1.425, ticket.getPrice()); // 5% discount out of 1.5
+        fareCalculatorService.getDiscount(ticket);
+        assertEquals(1.43, ticket.getPrice()); // 5% discount out of 1.5
     }
 
 }

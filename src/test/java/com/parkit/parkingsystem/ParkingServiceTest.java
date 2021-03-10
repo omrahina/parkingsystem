@@ -23,6 +23,8 @@ public class ParkingServiceTest {
 
     private static ParkingService parkingService;
 
+    private static Ticket ticket;
+
     @Mock
     private static InputReaderUtil inputReaderUtil;
     @Mock
@@ -36,11 +38,10 @@ public class ParkingServiceTest {
             when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 
             ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
-            Ticket ticket = new Ticket();
+            ticket = new Ticket();
             ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
             ticket.setParkingSpot(parkingSpot);
             ticket.setVehicleRegNumber("ABCDEF");
-            when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
             when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
 
             parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
@@ -53,6 +54,7 @@ public class ParkingServiceTest {
     @Test
     public void processExitingVehicleTest(){
         when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
+        when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
         parkingService.processExitingVehicle();
         verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
     }

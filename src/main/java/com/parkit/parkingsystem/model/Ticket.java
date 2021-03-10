@@ -59,11 +59,4 @@ public class Ticket {
         this.outTime = outTime == null ? null : (Date) outTime.clone();
     }
 
-    public boolean isRegular() {
-        return regular;
-    }
-
-    public void setRegular(boolean regular) {
-        this.regular = regular;
-    }
 }

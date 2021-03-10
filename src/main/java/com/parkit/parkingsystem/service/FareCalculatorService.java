@@ -28,9 +28,6 @@ public class FareCalculatorService {
                 }
                 default: throw new IllegalArgumentException("Unkown Parking Type");
             }
-            if (ticket.isRegular()){
-                price = getDiscount(price, Fare.DISCOUNT_RECURRING_USERS);
-            }
             ticket.setPrice(roundPrice(price));
         }
 
@@ -40,8 +37,10 @@ public class FareCalculatorService {
         return Precision.round(price, 2);
     }
 
-    public double getDiscount(double price, double discount){
-        return price - (price * discount);
+    public void getDiscount(Ticket ticket){
+        double initialPrice = ticket.getPrice();
+        double discounted = initialPrice * Fare.DISCOUNT_RECURRING_USERS;
+        ticket.setPrice(roundPrice(initialPrice - discounted));
     }
 
 }
