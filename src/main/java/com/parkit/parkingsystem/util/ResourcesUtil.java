@@ -8,17 +8,18 @@ import java.util.Properties;
 
 public class ResourcesUtil {
 
+    public static final String PROPERTIES_FILE_NAME = "application.properties";
+
     /**
      * This method looks for a value throughout a properties file
-     * @param propertiesFileName a file containing parameters as key-value pairs
      * @param key the property needed
      * @return the value corresponding to a specified key or throw an exception if the key isn't in the properties
      */
-    public String getProperty(String propertiesFileName, String key){
+    public String getProperty(String key){
         String value = "";
         Properties properties = new Properties();
         try {
-            properties.load(getFileFromResourcesAsStream(propertiesFileName));
+            properties.load(getFileFromResourcesAsStream(PROPERTIES_FILE_NAME));
             value = properties.getProperty(key);
             if (value == null){
                 throw new InvalidParameterException("Missing value for key " +key);
