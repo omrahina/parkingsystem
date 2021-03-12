@@ -6,7 +6,6 @@ import org.apache.commons.math3.util.Precision;
 
 public class FareCalculatorService {
 
-
     public void calculateFare(Ticket ticket){
         if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
@@ -28,7 +27,7 @@ public class FareCalculatorService {
                 }
                 default: throw new IllegalArgumentException("Unkown Parking Type");
             }
-            ticket.setPrice(roundPrice(price));
+            ticket.setPrice(price);
         }
 
     }
@@ -40,7 +39,12 @@ public class FareCalculatorService {
     public void getDiscount(Ticket ticket){
         double initialPrice = ticket.getPrice();
         double discounted = initialPrice * Fare.DISCOUNT_RECURRING_USERS;
-        ticket.setPrice(roundPrice(initialPrice - discounted));
+        ticket.setPrice(initialPrice - discounted);
+    }
+
+    public double getDiscount(double price){
+        double discounted = price * Fare.DISCOUNT_RECURRING_USERS;
+        return (price - discounted);
     }
 
 }

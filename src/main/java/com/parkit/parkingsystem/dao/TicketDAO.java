@@ -91,7 +91,7 @@ public class TicketDAO {
         return false;
     }
 
-    public boolean countTicket(String vehicleRegNumber){
+    public int countTicket(String vehicleRegNumber){
         Connection con = null;
         int result = 0;
         try {
@@ -109,6 +109,6 @@ public class TicketDAO {
         }finally {
             dataBaseConfig.closeConnection(con);
         }
-        return (result > 0);
+        return result;
     }
 }
