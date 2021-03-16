@@ -2,7 +2,6 @@ package com.parkit.parkingsystem.service;
 
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.model.Ticket;
-import org.apache.commons.math3.util.Precision;
 
 public class FareCalculatorService {
 
@@ -37,15 +36,6 @@ public class FareCalculatorService {
     }
 
     /**
-     * A helper method that rounds a price to 2 places
-     * @param price A double number
-     * @return the rounded price
-     */
-    public double roundPrice(double price){
-        return Precision.round(price, 2);
-    }
-
-    /**
      * This method applies a discount of a certain percentage on a given ticket
      * @param ticket having the initial price
      */
@@ -54,10 +44,4 @@ public class FareCalculatorService {
         double discounted = initialPrice * Fare.DISCOUNT_RECURRING_USERS;
         ticket.setPrice(initialPrice - discounted);
     }
-
-//    public double getDiscount(double price){
-//        double discounted = price * Fare.DISCOUNT_RECURRING_USERS;
-//        return (price - discounted);
-//    }
-
 }
