@@ -12,6 +12,12 @@ public class DataBaseTestConfig extends DataBaseConfig {
     private static final Logger logger = LogManager.getLogger("DataBaseTestConfig");
     private ResourcesUtil resourcesUtil = new ResourcesUtil();
 
+    /**
+     * A method used when requesting a connection to the Test Database
+     * @return a connection to the given Database
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -19,6 +25,10 @@ public class DataBaseTestConfig extends DataBaseConfig {
                 resourcesUtil.getProperty("urlTest"), resourcesUtil.getProperty("user"), resourcesUtil.getProperty("password"));
     }
 
+    /**
+     * This method closes a connection
+     * @param con the specified connection
+     */
     public void closeConnection(Connection con){
         if(con!=null){
             try {
@@ -30,6 +40,10 @@ public class DataBaseTestConfig extends DataBaseConfig {
         }
     }
 
+    /**
+     * This method is used to close a PreparedStatement
+     * @param ps the PreparedStatement
+     */
     public void closePreparedStatement(PreparedStatement ps) {
         if(ps!=null){
             try {
@@ -41,6 +55,10 @@ public class DataBaseTestConfig extends DataBaseConfig {
         }
     }
 
+    /**
+     * This method closes a ResultSet
+     * @param rs the ResultSet to close
+     */
     public void closeResultSet(ResultSet rs) {
         if(rs!=null){
             try {

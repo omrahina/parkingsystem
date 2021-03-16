@@ -153,4 +153,11 @@ public class FareCalculatorServiceTest {
         assertEquals(1.425, ticket.getPrice()); // 5% discount out of 1.5
     }
 
+    @Test
+    void testGetDiscount(){
+        ticket.setPrice(100.00);
+        fareCalculatorService.getDiscount(ticket);
+        assertEquals(95.0, ticket.getPrice());
+    }
+
 }

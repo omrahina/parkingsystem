@@ -19,6 +19,11 @@ public class TicketDAO {
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+    /**
+     * Saves a ticket in the database
+     * @param ticket A ticket
+     * @return True with a successful operation, false otherwise
+     */
     public boolean saveTicket(Ticket ticket){
         Connection con = null;
         boolean psResult;
@@ -43,6 +48,11 @@ public class TicketDAO {
         }
     }
 
+    /**
+     * This method performs a select on a table in order to get a ticket
+     * @param vehicleRegNumber The registration number of the desired ticket
+     * @return The ticket if exits or a null object
+     */
     public Ticket getTicket(String vehicleRegNumber) {
         Connection con = null;
         Ticket ticket = null;
@@ -72,6 +82,11 @@ public class TicketDAO {
         }
     }
 
+    /**
+     * Updates the price and outTime of a given ticket
+     * @param ticket A ticket in the database
+     * @return True or false depending on whether the update is successful or not
+     */
     public boolean updateTicket(Ticket ticket) {
         Connection con = null;
         try {
@@ -84,13 +99,18 @@ public class TicketDAO {
             dataBaseConfig.closePreparedStatement(ps);
             return true;
         }catch (Exception ex){
-            logger.error("Error saving ticket info",ex);
+            logger.error("Error updating ticket info",ex);
         }finally {
             dataBaseConfig.closeConnection(con);
         }
         return false;
     }
 
+    /**
+     * This method counts the number of tickets matching a certain registration number in the database
+     * @param vehicleRegNumber The registration number concerned
+     * @return The number of occurrences
+     */
     public int countTicket(String vehicleRegNumber){
         Connection con = null;
         int result = 0;
